@@ -1,0 +1,2252 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<title>Body Parts Adventure - Ms. Ramezanzadeh</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#80deea;
+}
+
+#game{
+    width:100%;
+    max-width:600px;
+    height:100vh;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(#fff3b0,#ddf8ff);
+}
+
+
+/* =========================
+   START SCREEN
+========================= */
+
+#start{
+    position:absolute;
+    inset:0;
+    z-index:100;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    font-size:75px;
+}
+
+.title{
+    font-size:36px;
+    font-weight:800;
+    color:#ff5c70;
+    margin:10px;
+}
+
+.subtitle{
+    font-size:20px;
+    color:#555;
+    margin-bottom:20px;
+}
+
+.nameLabel{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+#playerName{
+    width:85%;
+    max-width:350px;
+    padding:14px;
+    border:3px solid #74c0fc;
+    border-radius:18px;
+    font-size:21px;
+    text-align:center;
+    outline:none;
+}
+
+.startButton{
+    margin-top:20px;
+    padding:17px 45px;
+    border:0;
+    border-radius:25px;
+    background:#ffb703;
+    color:white;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.teacher{
+    margin-top:25px;
+    font-size:18px;
+    font-weight:bold;
+    color:#555;
+}
+
+
+/* =========================
+   GAME
+========================= */
+
+#play{
+    display:none;
+    width:100%;
+    height:100%;
+    position:relative;
+}
+
+.top{
+    height:65px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px;
+    position:relative;
+    z-index:20;
+}
+
+.info{
+    background:white;
+    border-radius:20px;
+    padding:8px 13px;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:0 3px 8px #0002;
+}
+
+.level{
+    background:#ffb703;
+    color:white;
+    padding:8px 13px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.player{
+    text-align:center;
+    height:35px;
+    font-size:18px;
+    font-weight:bold;
+    color:#555;
+}
+
+
+/* =========================
+   FIND THIS
+   NO IMAGE
+========================= */
+
+.target{
+    text-align:center;
+    font-size:27px;
+    font-weight:800;
+    color:#333;
+    height:65px;
+    padding-top:10px;
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+.timerBox{
+    position:absolute;
+    right:10px;
+    top:105px;
+    background:white;
+    border-radius:20px;
+    padding:7px 13px;
+    font-size:20px;
+    font-weight:bold;
+    z-index:25;
+    box-shadow:0 3px 8px #0002;
+}
+
+.timerDanger{
+    color:#f44336;
+    background:#ffe5e5;
+}
+
+
+/* =========================
+   ARENA
+========================= */
+
+#arena{
+    position:absolute;
+    left:0;
+    right:0;
+    top:165px;
+    bottom:0;
+    overflow:hidden;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    position:absolute;
+
+    width:115px;
+    height:100px;
+
+    background:white;
+
+    border:4px solid white;
+
+    border-radius:25px;
+
+    box-shadow:0 7px 16px #0003;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:42px;
+
+    user-select:none;
+
+    touch-action:manipulation;
+
+    cursor:pointer;
+}
+
+.card:active{
+    transform:scale(.82);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:20px;
+
+    text-align:center;
+
+    font-size:28px;
+    font-weight:bold;
+
+    z-index:30;
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+#success{
+    display:none;
+
+    position:absolute;
+    inset:0;
+
+    z-index:60;
+
+    background:#fffffff5;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+}
+
+.successStar{
+    font-size:100px;
+}
+
+.successText{
+    font-size:38px;
+    font-weight:bold;
+    color:#06a77d;
+}
+
+.successName{
+    font-size:22px;
+    margin-top:10px;
+    color:#555;
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+#gameOver{
+    display:none;
+
+    position:absolute;
+    inset:0;
+
+    z-index:90;
+
+    background:#fffffff5;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+.gameOverIcon{
+    font-size:90px;
+}
+
+.gameOverTitle{
+    font-size:42px;
+    font-weight:bold;
+    color:#ff5c70;
+}
+
+.gameOverText{
+    font-size:22px;
+    margin:10px;
+}
+
+.gameOverScore{
+    font-size:28px;
+    margin:10px;
+}
+
+.teacherFinal{
+    margin-top:15px;
+    font-size:20px;
+    font-weight:bold;
+    color:#555;
+}
+
+
+/* =========================
+   FINAL WIN
+========================= */
+
+#finish{
+    display:none;
+
+    position:absolute;
+    inset:0;
+
+    z-index:100;
+
+    background:#fff3b0;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+.trophy{
+    font-size:100px;
+}
+
+.finalTitle{
+    font-size:42px;
+    font-weight:bold;
+    color:#ff5c70;
+}
+
+.finalName{
+    font-size:26px;
+    font-weight:bold;
+    margin:8px;
+}
+
+.finalScore{
+    font-size:28px;
+    margin:10px;
+}
+
+.againButton{
+    border:0;
+
+    background:#06d6a0;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    padding:17px 35px;
+
+    border-radius:20px;
+
+    margin-top:15px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div id="game">
+
+
+<!-- =========================
+     START SCREEN
+========================= -->
+
+<div id="start">
+
+    <div class="logo">
+        🧒
+    </div>
+
+    <div class="title">
+        BODY PARTS
+    </div>
+
+    <div class="subtitle">
+        Adventure Game
+    </div>
+
+    <div class="nameLabel">
+        What is your name?
+    </div>
+
+    <input
+        id="playerName"
+        type="text"
+        placeholder="Your name"
+        maxlength="18"
+    >
+
+    <button
+        id="startButton"
+        class="startButton">
+
+        ▶ START GAME
+
+    </button>
+
+    <div class="teacher">
+        Ms. Ramezanzadeh
+    </div>
+
+</div>
+
+
+<!-- =========================
+     GAME
+========================= -->
+
+<div id="play">
+
+    <div class="top">
+
+        <div class="info">
+            ⭐ <span id="score">0</span>
+        </div>
+
+        <div class="level">
+            LEVEL <span id="level">1</span>
+        </div>
+
+        <div class="info">
+            <span id="hearts">❤️❤️❤️</span>
+        </div>
+
+    </div>
+
+
+    <div class="player">
+
+        Hi,
+        <span id="playerDisplay">Friend</span>
+        ! 👋
+
+    </div>
+
+
+    <!--
+        IMPORTANT:
+        THERE IS NO BODY PART IMAGE HERE.
+        ONLY TEXT.
+    -->
+
+    <div class="target">
+        FIND THIS
+    </div>
+
+
+    <div
+        id="timerBox"
+        class="timerBox">
+
+        ⏱️
+        <span id="timer">10</span>
+
+    </div>
+
+
+    <div id="arena"></div>
+
+    <div id="message"></div>
+
+</div>
+
+
+<!-- =========================
+     SUCCESS
+========================= -->
+
+<div id="success">
+
+    <div class="successStar">
+        ⭐
+    </div>
+
+    <div class="successText">
+        GREAT JOB!
+    </div>
+
+    <div class="successName">
+
+        Well done,
+        <span id="successName"></span>!
+
+        🎉
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     GAME OVER
+========================= -->
+
+<div id="gameOver">
+
+    <div class="gameOverIcon">
+        💔
+    </div>
+
+    <div class="gameOverTitle">
+        GAME OVER
+    </div>
+
+    <div class="gameOverText">
+
+        Good try,
+        <span id="gameOverName"></span>!
+
+        😊
+
+    </div>
+
+    <div class="gameOverScore">
+
+        ⭐ Score:
+        <span id="gameOverScore">0</span>
+
+    </div>
+
+    <div class="teacherFinal">
+        Ms. Ramezanzadeh
+    </div>
+
+    <button
+        id="gameOverButton"
+        class="againButton">
+
+        🎮 PLAY AGAIN
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+     FINAL WIN
+========================= -->
+
+<div id="finish">
+
+    <div class="trophy">
+        🏆
+    </div>
+
+    <div class="finalTitle">
+        AMAZING!
+    </div>
+
+    <div class="finalName">
+
+        Great job,
+        <span id="finalName"></span>!
+
+    </div>
+
+    <div class="finalScore">
+
+        ⭐ Score:
+        <span id="finalScore">0</span>
+
+    </div>
+
+    <div class="teacherFinal">
+        Ms. Ramezanzadeh
+    </div>
+
+    <button
+        id="finishButton"
+        class="againButton">
+
+        🎮 PLAY AGAIN
+
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   BODY PARTS
+========================= */
+
+const parts = [
+
+    {
+        name:"eyes",
+        icon:"👀"
+    },
+
+    {
+        name:"ears",
+        icon:"👂👂"
+    },
+
+    {
+        name:"nose",
+        icon:"👃"
+    },
+
+    {
+        name:"mouth",
+        icon:"👄"
+    },
+
+    {
+        name:"hands",
+        icon:"🖐️🖐️"
+    },
+
+    {
+        name:"feet",
+        icon:"🦶🦶"
+    },
+
+    {
+        name:"arms",
+        icon:"💪💪"
+    },
+
+    {
+        name:"legs",
+        icon:"🦵🦵"
+    },
+
+    {
+        name:"fingers",
+        icon:"🖐️🖐️"
+    }
+
+];
+
+
+/* =========================
+   AUDIO FILES
+
+   ALL FILES ARE NEXT TO
+   index.html
+========================= */
+
+const voiceFiles = {
+
+    eyes:"eyes.mp3",
+
+    ears:"ears.mp3",
+
+    nose:"nose.mp3",
+
+    mouth:"mouth.mp3",
+
+    hands:"hands.mp3",
+
+    feet:"feet.mp3",
+
+    arms:"arm.mp3",
+
+    legs:"legs.mp3",
+
+    fingers:"fingers.mp3"
+
+};
+
+
+/* =========================
+   BODY PART AUDIO
+========================= */
+
+const voiceAudio = {};
+
+
+for(
+    const name of Object.keys(voiceFiles)
+){
+
+    const audio =
+        new Audio(
+            voiceFiles[name]
+        );
+
+    audio.preload="auto";
+
+    audio.volume=1.0;
+
+    voiceAudio[name]=audio;
+
+}
+
+
+/* =========================
+   FIND THIS AUDIO
+========================= */
+
+const findThisAudio =
+    new Audio(
+        "find-this.mp3"
+    );
+
+findThisAudio.preload="auto";
+
+findThisAudio.volume=1.0;
+
+
+/* =========================
+   MUSIC
+========================= */
+
+const music =
+    new Audio(
+        "music.mp3"
+    );
+
+music.loop=true;
+
+music.volume=0.25;
+
+
+/* =========================
+   PLAY TARGET VOICE
+========================= */
+
+function playTargetVoice(name){
+
+    const targetAudio =
+        voiceAudio[name];
+
+    if(!targetAudio){
+
+        console.log(
+            "Audio file not found:",
+            name
+        );
+
+        return;
+
+    }
+
+
+    findThisAudio.pause();
+
+    findThisAudio.currentTime=0;
+
+    targetAudio.pause();
+
+    targetAudio.currentTime=0;
+
+
+    /*
+       FIRST:
+       FIND THIS
+    */
+
+    findThisAudio
+    .play()
+    .then(function(){
+
+        findThisAudio.onended =
+        function(){
+
+            /*
+               THEN:
+               BODY PART
+            */
+
+            targetAudio.currentTime=0;
+
+            targetAudio
+            .play()
+            .catch(function(error){
+
+                console.log(
+                    "Body part audio error:",
+                    error
+                );
+
+            });
+
+        };
+
+    })
+    .catch(function(){
+
+        /*
+           If FIND THIS is blocked,
+           play body-part audio.
+        */
+
+        targetAudio
+        .play()
+        .catch(function(error){
+
+            console.log(
+                "Audio error:",
+                error
+            );
+
+        });
+
+    });
+
+}
+
+
+/* =========================
+   AUDIO EFFECTS
+========================= */
+
+let audioContext=null;
+
+
+function getAudioContext(){
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    if(!AudioContext){
+
+        return null;
+
+    }
+
+
+    if(!audioContext){
+
+        audioContext =
+            new AudioContext();
+
+    }
+
+
+    if(
+        audioContext.state==="suspended"
+    ){
+
+        audioContext.resume();
+
+    }
+
+
+    return audioContext;
+
+}
+
+
+function playNotes(notes){
+
+    try{
+
+        const ctx =
+            getAudioContext();
+
+        if(!ctx){
+
+            return;
+
+        }
+
+
+        let start =
+            ctx.currentTime;
+
+
+        notes.forEach(
+        function(freq){
+
+            const oscillator =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+
+            oscillator.type="sine";
+
+            oscillator.frequency.value=
+                freq;
+
+
+            gain.gain.setValueAtTime(
+                0.001,
+                start
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.5,
+                start+0.03
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                start+0.25
+            );
+
+
+            oscillator.connect(gain);
+
+            gain.connect(
+                ctx.destination
+            );
+
+
+            oscillator.start(start);
+
+            oscillator.stop(
+                start+0.28
+            );
+
+
+            start+=0.14;
+
+        });
+
+    }
+
+    catch(error){}
+
+}
+
+
+/* =========================
+   CORRECT SOUND
+========================= */
+
+function playWinSound(){
+
+    playNotes([
+        523,
+        659,
+        784,
+        1047
+    ]);
+
+}
+
+
+/* =========================
+   WRONG SOUND
+========================= */
+
+function playWrongSound(){
+
+    playNotes([
+        330,
+        247
+    ]);
+
+}
+
+
+/* =========================
+   TIME UP
+========================= */
+
+function playTimeUpSound(){
+
+    playNotes([
+        392,
+        330,
+        262
+    ]);
+
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+function playGameOverSound(){
+
+    try{
+
+        const ctx =
+            getAudioContext();
+
+        if(!ctx){
+
+            return;
+
+        }
+
+
+        const notes=[
+            330,
+            294,
+            247,
+            196
+        ];
+
+
+        let start =
+            ctx.currentTime;
+
+
+        notes.forEach(
+        function(freq){
+
+            const oscillator =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+
+            oscillator.type=
+                "sawtooth";
+
+
+            oscillator.frequency.value=
+                freq;
+
+
+            gain.gain.setValueAtTime(
+                0.001,
+                start
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.7,
+                start+0.03
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                start+0.4
+            );
+
+
+            oscillator.connect(gain);
+
+            gain.connect(
+                ctx.destination
+            );
+
+
+            oscillator.start(start);
+
+            oscillator.stop(
+                start+0.45
+            );
+
+
+            start+=0.18;
+
+        });
+
+    }
+
+    catch(error){}
+
+}
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let score=0;
+
+let lives=3;
+
+let round=0;
+
+let level=1;
+
+let target=null;
+
+let previousTarget="";
+
+let cards=[];
+
+let animationID=null;
+
+let timerID=null;
+
+let timeLeft=10;
+
+let locked=false;
+
+let playerName="Friend";
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame(){
+
+    const ctx =
+        getAudioContext();
+
+    if(ctx){
+
+        ctx.resume();
+
+    }
+
+
+    playerName =
+        document
+        .getElementById(
+            "playerName"
+        )
+        .value
+        .trim();
+
+
+    if(playerName===""){
+
+        playerName="Friend";
+
+    }
+
+
+    document
+    .getElementById(
+        "playerDisplay"
+    )
+    .textContent=
+        playerName;
+
+
+    document
+    .getElementById(
+        "successName"
+    )
+    .textContent=
+        playerName;
+
+
+    document
+    .getElementById(
+        "gameOverName"
+    )
+    .textContent=
+        playerName;
+
+
+    document
+    .getElementById(
+        "finalName"
+    )
+    .textContent=
+        playerName;
+
+
+    document
+    .getElementById(
+        "start"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "play"
+    )
+    .style.display=
+        "block";
+
+
+    score=0;
+
+    lives=3;
+
+    round=0;
+
+    level=1;
+
+    previousTarget="";
+
+    locked=false;
+
+
+    updateUI();
+
+
+    music.currentTime=0;
+
+    music
+    .play()
+    .catch(function(){});
+
+
+    newRound();
+
+}
+
+
+/* =========================
+   NEW GAME
+========================= */
+
+function newGame(){
+
+    stopMovement();
+
+    stopTimer();
+
+
+    music.pause();
+
+    music.currentTime=0;
+
+
+    findThisAudio.pause();
+
+    findThisAudio.currentTime=0;
+
+
+    document
+    .getElementById(
+        "gameOver"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "finish"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "success"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "play"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "start"
+    )
+    .style.display=
+        "flex";
+
+
+    document
+    .getElementById(
+        "playerName"
+    )
+    .value="";
+
+
+    score=0;
+
+    lives=3;
+
+    round=0;
+
+    level=1;
+
+    previousTarget="";
+
+    locked=false;
+
+}
+
+
+/* =========================
+   NEW ROUND
+========================= */
+
+function newRound(){
+
+    stopMovement();
+
+    stopTimer();
+
+    locked=false;
+
+
+    document
+    .getElementById(
+        "message"
+    )
+    .textContent="";
+
+
+    if(round>=20){
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    level =
+        Math.floor(
+            round/5
+        )+1;
+
+
+    let available =
+        parts.filter(
+        function(part){
+
+            return part.name !==
+                previousTarget;
+
+        });
+
+
+    target =
+        available[
+            Math.floor(
+                Math.random()*
+                available.length
+            )
+        ];
+
+
+    previousTarget =
+        target.name;
+
+
+    document
+    .getElementById(
+        "level"
+    )
+    .textContent=
+        level;
+
+
+    createCards();
+
+    startTimer();
+
+
+    /*
+       NO IMAGE OF TARGET.
+       ONLY AUDIO.
+    */
+
+    setTimeout(
+    function(){
+
+        if(!locked){
+
+            playTargetVoice(
+                target.name
+            );
+
+        }
+
+    },
+    300
+    );
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(){
+
+    timeLeft =
+        Math.max(
+            7,
+            11-level
+        );
+
+
+    document
+    .getElementById(
+        "timer"
+    )
+    .textContent=
+        timeLeft;
+
+
+    document
+    .getElementById(
+        "timerBox"
+    )
+    .classList
+    .remove(
+        "timerDanger"
+    );
+
+
+    timerID =
+        setInterval(
+        function(){
+
+            timeLeft--;
+
+
+            document
+            .getElementById(
+                "timer"
+            )
+            .textContent=
+                timeLeft;
+
+
+            if(timeLeft<=3){
+
+                document
+                .getElementById(
+                    "timerBox"
+                )
+                .classList
+                .add(
+                    "timerDanger"
+                );
+
+            }
+
+
+            if(timeLeft<=0){
+
+                stopTimer();
+
+                timeUp();
+
+            }
+
+        },
+        1000
+        );
+
+}
+
+
+function stopTimer(){
+
+    if(timerID!==null){
+
+        clearInterval(
+            timerID
+        );
+
+        timerID=null;
+
+    }
+
+}
+
+
+/* =========================
+   TIME UP
+========================= */
+
+function timeUp(){
+
+    if(locked){
+
+        return;
+
+    }
+
+
+    locked=true;
+
+    stopMovement();
+
+
+    lives--;
+
+    updateUI();
+
+
+    playTimeUpSound();
+
+
+    document
+    .getElementById(
+        "message"
+    )
+    .textContent=
+        "TIME'S UP! ⏰";
+
+
+    document
+    .getElementById(
+        "message"
+    )
+    .style.color=
+        "#f44336";
+
+
+    if(lives<=0){
+
+        setTimeout(
+            showGameOver,
+            900
+        );
+
+        return;
+
+    }
+
+
+    setTimeout(
+    function(){
+
+        round++;
+
+        newRound();
+
+    },
+    1000
+    );
+
+}
+
+
+/* =========================
+   CREATE CARDS
+========================= */
+
+function createCards(){
+
+    const arena =
+        document.getElementById(
+            "arena"
+        );
+
+
+    arena.innerHTML="";
+
+    cards=[];
+
+
+    let amount=3;
+
+
+    if(level>=3){
+
+        amount=4;
+
+    }
+
+
+    if(level>=4){
+
+        amount=5;
+
+    }
+
+
+    let choices=[
+        target
+    ];
+
+
+    while(
+        choices.length<amount
+    ){
+
+        const random =
+            parts[
+                Math.floor(
+                    Math.random()*
+                    parts.length
+                )
+            ];
+
+
+        const exists =
+            choices.some(
+            function(item){
+
+                return item.name===
+                    random.name;
+
+            });
+
+
+        if(!exists){
+
+            choices.push(
+                random
+            );
+
+        }
+
+    }
+
+
+    choices.sort(
+    function(){
+
+        return Math.random()-0.5;
+
+    });
+
+
+    choices.forEach(
+    function(part){
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className="card";
+
+
+        /*
+           Cards contain images/icons.
+           The target above does NOT.
+        */
+
+        card.textContent=
+            part.icon;
+
+
+        const maxX =
+            Math.max(
+                5,
+                arena.clientWidth-120
+            );
+
+
+        const maxY =
+            Math.max(
+                5,
+                arena.clientHeight-105
+            );
+
+
+        const angle =
+            Math.random()*
+            Math.PI*2;
+
+
+        const speed =
+            0.6+
+            Math.random()*0.8+
+            level*0.15;
+
+
+        const data={
+
+            element:card,
+
+            x:
+                Math.random()*maxX,
+
+            y:
+                Math.random()*maxY,
+
+            vx:
+                Math.cos(angle)*speed,
+
+            vy:
+                Math.sin(angle)*speed
+
+        };
+
+
+        cards.push(data);
+
+
+        card.addEventListener(
+            "click",
+            function(){
+
+                checkAnswer(
+                    part.name,
+                    data
+                );
+
+            }
+        );
+
+
+        arena.appendChild(
+            card
+        );
+
+    });
+
+
+    moveCards();
+
+}
+
+
+/* =========================
+   MOVE CARDS
+========================= */
+
+function moveCards(){
+
+    const arena =
+        document.getElementById(
+            "arena"
+        );
+
+
+    const width =
+        arena.clientWidth;
+
+
+    const height =
+        arena.clientHeight;
+
+
+    function animate(){
+
+        if(locked){
+
+            return;
+
+        }
+
+
+        cards.forEach(
+        function(card){
+
+            card.x +=
+                card.vx;
+
+
+            card.y +=
+                card.vy;
+
+
+            if(
+                card.x<=0 ||
+                card.x>=width-120
+            ){
+
+                card.vx=
+                    -card.vx;
+
+            }
+
+
+            if(
+                card.y<=0 ||
+                card.y>=height-105
+            ){
+
+                card.vy=
+                    -card.vy;
+
+            }
+
+
+            card.x=
+                Math.max(
+                    0,
+                    Math.min(
+                        card.x,
+                        width-120
+                    )
+                );
+
+
+            card.y=
+                Math.max(
+                    0,
+                    Math.min(
+                        card.y,
+                        height-105
+                    )
+                );
+
+
+            card.element.style.transform=
+                "translate3d("+
+                card.x+
+                "px,"+
+                card.y+
+                "px,0)";
+
+        });
+
+
+        animationID =
+            requestAnimationFrame(
+                animate
+            );
+
+    }
+
+
+    animate();
+
+}
+
+
+function stopMovement(){
+
+    if(animationID!==null){
+
+        cancelAnimationFrame(
+            animationID
+        );
+
+        animationID=null;
+
+    }
+
+}
+
+
+/* =========================
+   CHECK ANSWER
+========================= */
+
+function checkAnswer(
+    name,
+    card
+){
+
+    if(locked){
+
+        return;
+
+    }
+
+
+    if(
+        name===
+        target.name
+    ){
+
+        correct();
+
+    }
+
+    else{
+
+        wrong(card);
+
+    }
+
+}
+
+
+/* =========================
+   CORRECT
+========================= */
+
+function correct(){
+
+    locked=true;
+
+    stopMovement();
+
+    stopTimer();
+
+
+    score +=
+        10+
+        level*5;
+
+
+    round++;
+
+
+    updateUI();
+
+
+    playWinSound();
+
+
+    document
+    .getElementById(
+        "success"
+    )
+    .style.display=
+        "flex";
+
+
+    setTimeout(
+    function(){
+
+        document
+        .getElementById(
+            "success"
+        )
+        .style.display=
+            "none";
+
+
+        newRound();
+
+    },
+    900
+    );
+
+}
+
+
+/* =========================
+   WRONG
+========================= */
+
+function wrong(card){
+
+    lives--;
+
+    updateUI();
+
+    playWrongSound();
+
+
+    document
+    .getElementById(
+        "message"
+    )
+    .textContent=
+        "TRY AGAIN! 😊";
+
+
+    document
+    .getElementById(
+        "message"
+    )
+    .style.color=
+        "#ff5c70";
+
+
+    card.element.style.opacity=
+        "0.35";
+
+
+    setTimeout(
+    function(){
+
+        card.element.style.opacity=
+            "1";
+
+    },
+    250
+    );
+
+
+    if(lives<=0){
+
+        locked=true;
+
+        stopMovement();
+
+        stopTimer();
+
+
+        document
+        .getElementById(
+            "message"
+        )
+        .textContent=
+            "GAME OVER! 💔";
+
+
+        document
+        .getElementById(
+            "message"
+        )
+        .style.color=
+            "#f44336";
+
+
+        setTimeout(
+            showGameOver,
+            900
+        );
+
+    }
+
+}
+
+
+/* =========================
+   UPDATE UI
+========================= */
+
+function updateUI(){
+
+    document
+    .getElementById(
+        "score"
+    )
+    .textContent=
+        score;
+
+
+    document
+    .getElementById(
+        "level"
+    )
+    .textContent=
+        level;
+
+
+    let hearts="";
+
+
+    for(
+        let i=0;
+        i<lives;
+        i++
+    ){
+
+        hearts+="❤️";
+
+    }
+
+
+    for(
+        let i=lives;
+        i<3;
+        i++
+    ){
+
+        hearts+="🤍";
+
+    }
+
+
+    document
+    .getElementById(
+        "hearts"
+    )
+    .textContent=
+        hearts;
+
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+function showGameOver(){
+
+    stopMovement();
+
+    stopTimer();
+
+    locked=true;
+
+
+    music.pause();
+
+
+    playGameOverSound();
+
+
+    document
+    .getElementById(
+        "play"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "gameOverName"
+    )
+    .textContent=
+        playerName;
+
+
+    document
+    .getElementById(
+        "gameOverScore"
+    )
+    .textContent=
+        score;
+
+
+    document
+    .getElementById(
+        "gameOver"
+    )
+    .style.display=
+        "flex";
+
+}
+
+
+/* =========================
+   REAL WIN
+========================= */
+
+function finishGame(){
+
+    stopMovement();
+
+    stopTimer();
+
+    locked=true;
+
+
+    music.pause();
+
+
+    document
+    .getElementById(
+        "play"
+    )
+    .style.display=
+        "none";
+
+
+    document
+    .getElementById(
+        "finish"
+    )
+    .style.display=
+        "flex";
+
+
+    document
+    .getElementById(
+        "finalScore"
+    )
+    .textContent=
+        score;
+
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+document
+.getElementById(
+    "startButton"
+)
+.addEventListener(
+    "click",
+    startGame
+);
+
+
+document
+.getElementById(
+    "gameOverButton"
+)
+.addEventListener(
+    "click",
+    newGame
+);
+
+
+document
+.getElementById(
+    "finishButton"
+)
+.addEventListener(
+    "click",
+    newGame
+);
+
+</script>
+
+</body>
+</html>
